@@ -37,4 +37,32 @@ Join a team                | Buzz in                   | Host view              
 
 ## License
 
+## Deploying to GCloud
+
+Starting this article from Building the Docker Image helped: https://towardsdatascience.com/how-to-deploy-docker-containers-to-the-cloud-b4d89b2c6c31
+
+```docker build -t [image name] .```
+
+- Here, the Docker image build command is docker build
+- Next, we use the -t flag to specify our image name
+- Finally, we tell Docker to include everything from the current directory with .
+
+install gcloud sdk: https://cloud.google.com/sdk/docs/downloads-interactive
+
+log into gcloud
+```gcloud auth login```
+
+gcloud might ask you to use your previous credentials... just say yeah, you can create a new project
+
+configure docker to use our gcloud auth
+```gcloud auth configure-docker```
+
+set project you're using
+```gcloud config set project [project-name]```
+
+make sure cloud container registry is available in google cloud, then submit image to cloud build 
+```gcloud builds submit --tag gcr.io/[PROJECT-ID]/gcp-api```
+
+manually create a Cloud Run on google cloud console. take note that the port number is 8090, not 8080.
+
 MIT
